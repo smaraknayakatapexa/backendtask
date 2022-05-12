@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Students = require("../models/studentdata");
+const verifyToken = require("../verifyToken");
 
-router.post("/add-new-student", async (req, res) => {
+router.post("/add-new-student", verifyToken, async (req, res) => {
   try {
     student = new Students({
       studentFirstName: req.body.studentFirstName,
@@ -27,7 +28,7 @@ router.post("/add-new-student", async (req, res) => {
   }
 });
 
-router.get("/get-students", async (req, res) => {
+router.get("/get-students", verifyToken, async (req, res) => {
   try {
     const students = await Students.find();
 
@@ -44,7 +45,7 @@ router.get("/get-students", async (req, res) => {
   }
 });
 
-router.delete("/delete-student/:id", async (req, res) => {
+router.delete("/delete-student/:id", verifyToken, async (req, res) => {
   try {
     const deleteStudent = await Students.deleteOne({ _id: req.params.id });
     if (deleteStudent) {
@@ -61,7 +62,7 @@ router.delete("/delete-student/:id", async (req, res) => {
   }
 });
 
-router.post("/update-student", async (req, res) => {
+router.post("/update-student", verifyToken, async (req, res) => {
   try {
     var updateObject = req.body;
     await Students.updateOne({ _id: req.body.id }, { $set: updateObject });
