@@ -7,7 +7,7 @@ const verifyToken = require("../verifyToken");
 //env config
 dotenv.config();
 
-router.post("/createUser", async (req, res) => {
+router.post("/create-user", async (req, res) => {
   const users = await Users.findOne({
     username: req.body.username,
   });
@@ -15,7 +15,7 @@ router.post("/createUser", async (req, res) => {
   if (users) {
     res.status(200).send({
       status: 400,
-      message: "user already exists",
+      message: "User Already Exists",
     });
   } else {
     try {
@@ -28,7 +28,7 @@ router.post("/createUser", async (req, res) => {
 
       res.status(200).send({
         status: 200,
-        message: "success",
+        message: "Success",
       });
     } catch (e) {
       res.status(400).send({
@@ -39,7 +39,7 @@ router.post("/createUser", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/user-login", async (req, res) => {
   console.log(req.body);
   const user = await Users.findOne({
     username: req.body.username,
@@ -48,13 +48,13 @@ router.post("/login", async (req, res) => {
   if (!user) {
     res.status(200).send({
       status: 400,
-      message: "user not found",
+      message: "User Not Found",
     });
   }
   if (req.body.password != user.password) {
     res.status(200).send({
       status: 400,
-      message: "Invalid Password",
+      message: "Username or Password is Invalid",
     });
   }
 

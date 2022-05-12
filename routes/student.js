@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Students = require("../models/studentdata");
 
-router.post("/addNewStudent", async (req, res) => {
+router.post("/add-new-student", async (req, res) => {
   try {
     student = new Students({
       studentFirstName: req.body.studentFirstName,
@@ -17,7 +17,7 @@ router.post("/addNewStudent", async (req, res) => {
 
     res.status(200).send({
       status: 200,
-      message: "success",
+      message: "Success",
     });
   } catch (e) {
     res.status(400).send({
@@ -27,14 +27,14 @@ router.post("/addNewStudent", async (req, res) => {
   }
 });
 
-router.get("/getStudents", async (req, res) => {
+router.get("/get-students", async (req, res) => {
   try {
     const students = await Students.find();
 
     res.status(200).send({
       status: 200,
       data: students,
-      message: "success",
+      message: "Success",
     });
   } catch (e) {
     res.status(400).send({
@@ -44,13 +44,13 @@ router.get("/getStudents", async (req, res) => {
   }
 });
 
-router.delete("/deleteStudent/:id", async (req, res) => {
+router.delete("/delete-student/:id", async (req, res) => {
   try {
     const deleteStudent = await Students.deleteOne({ _id: req.params.id });
     if (deleteStudent) {
       res.status(200).send({
         status: 200,
-        message: "delete success",
+        message: "Delete Success",
       });
     }
   } catch (e) {
@@ -61,14 +61,14 @@ router.delete("/deleteStudent/:id", async (req, res) => {
   }
 });
 
-router.post("/updateStudent", async (req, res) => {
+router.post("/update-student", async (req, res) => {
   try {
     var updateObject = req.body;
     await Students.updateOne({ _id: req.body.id }, { $set: updateObject });
 
     res.status(200).send({
       status: 200,
-      message: "update success",
+      message: "Update Success",
     });
   } catch (e) {
     res.status(400).send({
